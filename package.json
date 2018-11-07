@@ -1,0 +1,16 @@
+{
+  "name": "mondrian",
+  "version": "1.0.0",
+  "description": "A/B Testing Services",
+  "repository": "https://github.com/orta/mondrian.git",
+  "author": "Orta Therox <orta.therox@gmail.com>",
+  "license": "MIT",
+  "private": true,
+  "dependencies": {
+    "apollo-server-lambda": "^2.0.0-xrc.11",
+    "graphql": "^14.0.2"
+  },
+  "scripts": {
+    "deploy:staging": "aws cloudformation deploy --template-file serverless-output.yaml --stack-name mondian-staging --capabilities CAPABILITY_IAM" 
+  }
+}
