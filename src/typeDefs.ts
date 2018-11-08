@@ -1,5 +1,3 @@
-// @ts-check
-
 import { gql } from 'apollo-server-lambda'
 
 // Construct a schema, using GraphQL schema language

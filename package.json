@@ -11,17 +11,21 @@
     "graphql": "^14.0.2"
   },
   "scripts": {
+    "start": "ts-node express.ts",
     "build": "yarn rollup -c; yarn install --prod --modules-folder dist/node_modules",
     "shipit:staging": "yarn build; yarn package:staging; yarn deploy:staging",
     "package:staging": "aws cloudformation package --template-file template.yaml --output-template-file serverless-output.yaml --s3-bucket artsy-lambda-deployments",
     "deploy:staging": "aws cloudformation deploy --template-file serverless-output.yaml --stack-name mondian-staging --capabilities CAPABILITY_IAM"
   },
   "devDependencies": {
+    "apollo-server-express": "^2.2.0",
+    "express": "^4.16.4",
     "rollup": "^0.67.0",
     "rollup-plugin-commonjs": "^9.2.0",
     "rollup-plugin-json": "^3.1.0",
     "rollup-plugin-node-resolve": "^3.4.0",
     "rollup-plugin-typescript": "^1.0.0",
+    "ts-node": "^7.0.1",
     "tslib": "^1.9.3",
     "typescript": "^3.1.6"
   }

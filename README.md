@@ -1,6 +1,6 @@
 # mondrian
 
-A/B Testing as a Service
+A/B Testing as a Service.
 
 ### Getting set up
 
@@ -10,7 +10,19 @@ cd mondrian
 
 # Install the AWS CLI
 brew bundle
+# Node deps
+yarn install
 ```
+
+### Development
+
+To launch the server, run 
+
+```sh
+yarn start
+```
+
+This runs the same GraphQL server as the lambda instance.
 
 ### Deployment
 
