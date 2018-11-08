@@ -1,6 +1,6 @@
-import { ApolloServer } from 'apollo-server-lambda'
-import {resolvers} from  "./src/resolvers"
-import {typeDefs} from  "./src/typeDefs"
+import { ApolloServer } from "apollo-server-lambda"
+import { resolvers } from "./src/resolvers"
+import { typeDefs } from "./src/typeDefs"
 
 const server = new ApolloServer({
   typeDefs,
@@ -11,6 +11,6 @@ const server = new ApolloServer({
     event,
     context,
   }),
-});
+})
 
-export const handler = server.createHandler();
+export const handler = server.createHandler()

@@ -20,6 +20,7 @@
   "devDependencies": {
     "apollo-server-express": "^2.2.0",
     "express": "^4.16.4",
+    "prettier": "^1.15.1",
     "rollup": "^0.67.0",
     "rollup-plugin-commonjs": "^9.2.0",
     "rollup-plugin-json": "^3.1.0",
