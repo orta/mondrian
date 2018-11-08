@@ -5,6 +5,7 @@ import { typeDefs } from "./src/typeDefs"
 const server = new ApolloServer({
   typeDefs,
   resolvers,
+  // @ts-ignore
   context: ({ event, context }) => ({
     headers: event.headers,
     functionName: context.functionName,

@@ -2,90 +2,101 @@ import { gql } from "apollo-server-lambda"
 
 // Construct a schema, using GraphQL schema language
 export const typeDefs = gql`
-  # A boolean that when set is applied to every user
-  # across the Artsy ecosystem
+  """
+   A boolean that when set is applied to every user
+   across the Artsy ecosystem
+  """
   type OperationFeature {
-    # A user facing name
+    """ A user facing name """ 
     name: String!
-    # The value used when referencing the flag in code
+    """ The value used when referencing the flag in code"""
     key: String!
-    # Automatically generated ID
+    """ Automatically generated ID """
     id: ID!
-    # Whether it is on or off for everyone
+    """ Whether it is on or off for everyone"""
     value: Boolean!
-    # Derived from the start date and end date
+    """Derived from the start date and end date"""
     active: Boolean!
-    # ISO6801 string representing the start date of a feature
+    """ISO6801 string representing the start date of a feature"""
     startDate: String
-    # ISO6801 string representing the end date of a feature
+    """ ISO6801 string representing the end date of a feature"""
     endDate: String
   }
 
-  # A value that can differ per user
+  """ 
+  A value that can differ per user
+  """
   type FeatureFlag {
-    # A user facing name
+    """ A user facing name"""
     name: String!
-    # The value used when referencing the flag in code
+    """ The value used when referencing the flag in code"""
     key: String!
-    # Automatically generated ID
+    """ Automatically generated ID"""
     id: ID!
-    # Derived from the start date and end date
+    """ Derived from the start date and end date"""
     active: Boolean!
-    # ISO6801 string representing the start date of a feature
+    """ ISO6801 string representing the start date of a feature"""
     startDate: String
-    # ISO6801 string representing the end date of a feature
-    endDate: String 
+    """ ISO6801 string representing the end date of a feature"""
+    endDate: String
 
-    # The set of string values it could be
-    values:  [String!]!
-    # An optional list of 0-100, of the same size of values
-    # that add up to 100, which indicate the chances of arriving at a value
+    """ The set of string values it could be"""
+    values: [String!]!
+    """ 
+    An optional list of 0-100, of the same size of values
+    that add up to 100, which indicate the chances of arriving at a value
+    """
     percents: [Int!]
-    # a Google Analytics dimension. You can create one by logging into GA, clicking 'Admin', clicking 'Custom Definitions' 
-    # in the middle column, clicking 'Custom Dimensions'. From there you can create a new custom dimension. Note that 
-    # you should then name this 'dimension1', 'dimension2', etc. - corresponding to the index of the custom definition in this UI.
-    #
-    # TODO: What should this look like with segment?
-    #
+    """
+     a Google Analytics dimension. You can create one by logging into GA, clicking 'Admin', clicking 'Custom Definitions'
+     in the middle column, clicking 'Custom Dimensions'. From there you can create a new custom dimension. Note that
+     you should then name this 'dimension1', 'dimension2', etc. - corresponding to the index of the custom definition in this UI.
+     
+     TODO: What should this look like with segment?
+    """ 
     dimension: String
-    # The option that admins will default to
+    """ The option that admins will default to"""
     edge: String
-    # An option that non-logged in user will default to
+    """ An option that non-logged in user will default to"""
     controlGroup: String
   }
 
-  # Root queries that are available
+  input UpdateSiteFeature {
+    name: String
+    startDate: String
+    endDate: String
+    key: String
+  }
+
+  input UpdateFeatureFlag {
+    name: String
+    startDate: String
+    endDate: String
+    key: String
+    values: [String!]
+    percents: [Int!]
+    dimension: String
+    edge: String
+    controlGroup: String
+  }
+
+  """ Root queries that are available """
   type Query {
-    # All current site features
+    """ All current site features """
     siteFeatures(active: Boolean): [OperationFeature!]!
-    # The feature flags for a specific user
-    featureFlags(userID: ID!) : [FeatureFlag!]!
+    """ The feature flags for a specific user """
+    featureFlags(userID: ID!): [FeatureFlag!]!
   }
 
   type Mutation {
-    # Create a site feature
-    createSiteFeature(name: String!, key: String!, startDate: String!, endDate: String): SiteFeature
-    # Update metadata on a site feature 
-    updateSiteFeature(input: { 
-      name: String, 
-      startDate: String, 
-      endDate:String, 
-      key: String 
-    } ): SiteFeature
-    
-    # Add a feature flag
+    """ Create a site feature """
+    createSiteFeature(name: String!, key: String!, startDate: String!, endDate: String): OperationFeature
+    """ Update metadata on a site feature """
+    updateSiteFeature(input: UpdateSiteFeature): OperationFeature
+
+    """ Add a feature flag """
     createFeatureFlag(name: String!, key: String!, startDate: String!, endDate: String): FeatureFlag
-    # Update metadata on a site feature 
-    updateFeatureFlag(input: { 
-      name: String, 
-      startDate: String, 
-      endDate:String, 
-      key: String, 
-      values: [String!], 
-      percents: [Int!], 
-      dimension: String, 
-      edge: String, 
-      controlGroup: String 
-    } ): FeatureFlag
+    """ Update metadata on a site feature """
+    updateFeatureFlag(input: UpdateFeatureFlag): FeatureFlag
   }
 `

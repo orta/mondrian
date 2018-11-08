@@ -1,6 +1,8 @@
 # mondrian
 
-A/B Testing as a Service.
+Feature Flagging Testing as a Service.
+
+This service is a GraphQL API, which is hosted on AWS lambda, which is stitched into Metaphysics.
 
 ### Getting set up
 

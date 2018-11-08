@@ -8,18 +8,24 @@
   "private": true,
   "dependencies": {
     "apollo-server-lambda": "^2.0.0-xrc.11",
-    "graphql": "^14.0.2"
+    "graphql": "^14.0.2",
+    "tslib": "^1.9.3"
   },
   "scripts": {
     "start": "ts-node express.ts",
     "build": "yarn rollup -c; yarn install --prod --modules-folder dist/node_modules",
+    "dump-schema": "ts-node scripts/dumpSchema.ts",
     "shipit:staging": "yarn build; yarn package:staging; yarn deploy:staging",
     "package:staging": "aws cloudformation package --template-file template.yaml --output-template-file serverless-output.yaml --s3-bucket artsy-lambda-deployments",
     "deploy:staging": "aws cloudformation deploy --template-file serverless-output.yaml --stack-name mondian-staging --capabilities CAPABILITY_IAM"
   },
   "devDependencies": {
+    "@types/graphql": "^14.0.3",
+    "@types/prettier": "^1.13.2",
     "apollo-server-express": "^2.2.0",
     "express": "^4.16.4",
+    "husky": "^1.1.3",
+    "lint-staged": "^8.0.4",
     "prettier": "^1.15.1",
     "rollup": "^0.67.0",
     "rollup-plugin-commonjs": "^9.2.0",
@@ -27,7 +33,24 @@
     "rollup-plugin-node-resolve": "^3.4.0",
     "rollup-plugin-typescript": "^1.0.0",
     "ts-node": "^7.0.1",
-    "tslib": "^1.9.3",
     "typescript": "^3.1.6"
+  },
+  "lint-staged": {
+    "*.@(json|md|ts|graphql)": [
+      "yarn prettier --write",
+      "git add"
+    ],
+    "*.@(ts)": [
+      "yarn tslint --fix",
+      "git add"
+    ],
+    "*.@(test.ts)": [
+      "yarn jest"
+    ]
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "lint-staged; yarn dump-schema; git add _schema.graphql"
+    }
   }
 }
