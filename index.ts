@@ -1,8 +1,8 @@
 // @ts-check
 
-const { ApolloServer, gql } = require('apollo-server-lambda');
-const resolvers = require("./src/resolvers")
-const typeDefs = require("./src/typeDefs")
+import { ApolloServer } from 'apollo-server-lambda'
+import {resolvers} from  "./src/resolvers"
+import {typeDefs} from  "./src/typeDefs"
 
 const server = new ApolloServer({
   typeDefs,
@@ -15,4 +15,4 @@ const server = new ApolloServer({
   }),
 });
 
-exports.handler = server.createHandler();
+export const handler = server.createHandler();

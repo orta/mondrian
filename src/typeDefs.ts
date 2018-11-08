@@ -1,7 +1,9 @@
 // @ts-check
 
+import { gql } from 'apollo-server-lambda'
+
 // Construct a schema, using GraphQL schema language
-const typeDefs = gql`
+export const typeDefs = gql`
   # A boolean that when set is applied to every user
   # across the Artsy ecosystem
   type OperationFeature {
@@ -36,8 +38,7 @@ const typeDefs = gql`
 
   # Root queries that are available
   type Query {
-    hello: String
+    siteFeatures: [OperationFeature!]!
+    featureFlags(userID: ID!) : [FeatureFlag!]!
   }
 `;
-
-module.exports = typeDefs

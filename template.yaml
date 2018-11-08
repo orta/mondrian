@@ -5,6 +5,7 @@ Resources:
     Type: AWS::Serverless::Function
     Properties:
       Handler: graphql.handler
+      CodeUri: ./dist/
       Runtime: nodejs8.10
       Events:
         AnyRequest:

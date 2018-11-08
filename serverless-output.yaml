@@ -2,7 +2,7 @@ AWSTemplateFormatVersion: '2010-09-09'
 Resources:
   GraphQL:
     Properties:
-      CodeUri: s3://artsy-lambda-deployments/8d1fd031dc8653e81ea2ea1ebc9c3c0e
+      CodeUri: s3://artsy-lambda-deployments/8e78cb55698492a53f0839854abcc334
       Events:
         AnyRequest:
           Properties:

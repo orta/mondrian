@@ -14,10 +14,20 @@ brew bundle
 
 ### Deployment
 
-This app uses the `aws` cli to handle its deployments, the commands are simplified to
-using 
+This app uses the [`aws`][aws] cli and [`rollup`][rollup] to handle its deployments, the commands are simplified to
+using `package.json`. 
+
+Deployment creates a `dist/` dir, and run's `yarn install` with no dev-deps into that folder, then rollup is used
+ to compile our TypeScript into a single file - wrapping up the code.
 
 ```sh
-#
+# Create the right build folder for the upload
+yarn build
+# Package the dist folder for uploading to s3
+yarn package:staging
+# Do the AWS work to set up the lambda function
 yarn deploy:staging
 ```
+
+[rollup]: https://rollupjs.org/guide/en
+[aws]: https://aws.amazon.com/cli/
