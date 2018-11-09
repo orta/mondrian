@@ -1,39 +1,80 @@
 """
-A value that can differ per user
+A boolean that when set is applied to every user
+across the Artsy ecosystem
 """
-type FeatureFlag {
+type AppFeature {
   """
-   A user facing name
+  A user facing name
   """
   name: String!
 
   """
-   The value used when referencing the flag in code
+  The value used when referencing the flag in code
   """
   key: String!
 
   """
-   Automatically generated ID
+  Automatically generated ID
   """
   id: ID!
 
   """
-   Derived from the start date and end date
+  Whether it is on or off for everyone
+  """
+  value: Boolean!
+
+  """
+  Derived from the start date and end date
   """
   active: Boolean!
 
   """
-   ISO6801 string representing the start date of a feature
+  ISO6801 string representing the start date of a feature
   """
   startDate: String
 
   """
-   ISO6801 string representing the end date of a feature
+  ISO6801 string representing the end date of a feature
+  """
+  endDate: String
+}
+
+"""
+A value that can differ per user
+"""
+type FeatureFlag {
+  """
+  A user facing name
+  """
+  name: String!
+
+  """
+  The value used when referencing the flag in code
+  """
+  key: String!
+
+  """
+  Automatically generated ID
+  """
+  id: ID!
+
+  """
+  Derived from the start date and end date
+  """
+  active: Boolean!
+
+  """
+  ISO6801 string representing the start date of a feature
+  """
+  startDate: String
+
+  """
+  ISO6801 string representing the end date of a feature
   """
   endDate: String
 
   """
-   The set of string values it could be
+  The set of string values it could be
   """
   values: [String!]!
 
@@ -54,34 +95,34 @@ type FeatureFlag {
   dimension: String
 
   """
-   The option that admins will default to
+  The option that admins will default to
   """
   edge: String
 
   """
-   An option that non-logged in user will default to
+  An option that non-logged in user will default to
   """
   controlGroup: String
 }
 
 type Mutation {
   """
-   Create a site feature
+  Create a site feature
   """
   createSiteFeature(
     name: String!
     key: String!
     startDate: String!
     endDate: String
-  ): OperationFeature
+  ): AppFeature
 
   """
-   Update metadata on a site feature
+  Update metadata on a site feature
   """
-  updateSiteFeature(input: UpdateSiteFeature): OperationFeature
+  updateSiteFeature(input: UpdateSiteFeature): AppFeature
 
   """
-   Add a feature flag
+  Add a feature flag
   """
   createFeatureFlag(
     name: String!
@@ -91,63 +132,22 @@ type Mutation {
   ): FeatureFlag
 
   """
-   Update metadata on a site feature
+  Update metadata on a site feature
   """
   updateFeatureFlag(input: UpdateFeatureFlag): FeatureFlag
 }
 
 """
-A boolean that when set is applied to every user
-across the Artsy ecosystem
-"""
-type OperationFeature {
-  """
-   A user facing name
-  """
-  name: String!
-
-  """
-   The value used when referencing the flag in code
-  """
-  key: String!
-
-  """
-   Automatically generated ID
-  """
-  id: ID!
-
-  """
-   Whether it is on or off for everyone
-  """
-  value: Boolean!
-
-  """
-  Derived from the start date and end date
-  """
-  active: Boolean!
-
-  """
-  ISO6801 string representing the start date of a feature
-  """
-  startDate: String
-
-  """
-   ISO6801 string representing the end date of a feature
-  """
-  endDate: String
-}
-
-"""
- Root queries that are available
+Root queries that are available
 """
 type Query {
   """
-   All current site features
+  All current site features
   """
-  siteFeatures(active: Boolean): [OperationFeature!]!
+  siteFeatures(active: Boolean): [AppFeature!]!
 
   """
-   The feature flags for a specific user
+  The feature flags for a specific user
   """
   featureFlags(userID: ID!): [FeatureFlag!]!
 }
