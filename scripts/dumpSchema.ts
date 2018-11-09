@@ -4,6 +4,10 @@ import prettier from "prettier"
 import {typeDefs} from "../src/typeDefs"
 import { makeExecutableSchema } from "graphql-tools";
 
+// Ensures this repo conforms to the RFC for
+// keeping GraphQL schema files in the root of repos
+// https://github.com/artsy/README/issues/31
+
 const schema = makeExecutableSchema({ typeDefs, parseOptions: {}  })
 const schemaText = printSchema(schema)
 const prettySchema = prettier.format(schemaText, { parser: "graphql" })

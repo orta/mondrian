@@ -1,0 +1,12 @@
+patch-package
+--- a/node_modules/sequelize-cli/lib/core/migrator.js
++++ b/node_modules/sequelize-cli/lib/core/migrator.js
+@@ -67,7 +67,7 @@ function getMigrator(type, args) {
+       migrations: {
+         params: [sequelize.getQueryInterface(), Sequelize],
+         path: _index2.default.path.getPath(type),
+-        pattern: /\.js$/,
++        pattern: /\.ts$/,
+         wrap: fun => {
+           if (fun.length === 3) {
+             return _bluebird2.default.promisify(fun);
